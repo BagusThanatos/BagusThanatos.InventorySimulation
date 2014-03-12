@@ -15,8 +15,8 @@ import java.util.Queue;
  * @author BagusNugroho
  */
 public class Simulator {
-    private Queue<Event> listCustAr = new LinkedList<Event>();
-    private Queue<Event> listOrderArrival = new LinkedList<Event>();
+    private Queue<Event> listCustAr = new LinkedList<>();
+    private Queue<Event> listOrderArrival = new LinkedList<>();
     private double clock;
     private int maxS;
     private int minS;
