@@ -14,7 +14,6 @@ public class Customer {
     String name;//jika customer adalah toko itu sendiri, saat order mobil, maka isi dengan "-1"
     double arrivalTime;
     int jumMobil;
-    int a;
     
 
     public Customer(String name,double arrivalTime,int jumMobil){
