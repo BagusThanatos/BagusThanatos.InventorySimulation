@@ -12,8 +12,8 @@ package bagusthanatos.inventorysimulation;
  */
 public class Event implements Comparable{
     int type; // 0 = customer arrival, 1 = order arrival;
-    double time; // event time
-    Customer customer; // event subject
+    double time; // waktu terjadinya event
+    Customer customer; // customer yang memesan, nama dijadikan -1 kalo yang mesan adalah si Dealer
 
     public Event(Customer c, int t, double tm){
         this.customer = c;

@@ -19,7 +19,7 @@ public class Customer {
     public Customer(String name,double arrivalTime,int jumMobil){
         this.name = name;
         this.arrivalTime = arrivalTime;
-        this.jumMobil=0;
+        this.jumMobil=jumMobil;
         
     }
 

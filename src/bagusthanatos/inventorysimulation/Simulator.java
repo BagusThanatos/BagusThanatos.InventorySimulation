@@ -36,6 +36,8 @@ public class Simulator {
         this.shortageCost=0.0;
         this.totalCost=0.0;
         this.itemCost=0.0;
+        this.listCustAr.clear();
+        this.listOrderArrival.clear();
     }
     public void inHoldCost(double i){
         this.holdingCost+=i;

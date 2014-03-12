@@ -6,6 +6,7 @@
 
 package bagusthanatos.inventorysimulation;
 
+
 /**
  *
  * @author BagusNugroho
@@ -17,6 +18,25 @@ public class BagusThanatosInventorySimulation {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Simulator[] s=new Simulator[4];
+        s[0]=new Simulator(20,40);
+        s[1]=new Simulator(30,60);
+        s[2]=new Simulator(40,70);
+        s[3]= new Simulator(10,50);
+        double[] avg = new double[4];
+        for(int i=0;i<4;i++) {
+            s[i].init();
+            avg[i]=0.0;
+        }
+        for (int i=0;i<50;i++){
+            Customer c;
+            double r= 0.5+Math.random()*1;
+            int mobil= 1+(int)Math.random()*10;
+            c= new Customer((i+1)+"",r,mobil);
+            for (int j=0;j<4;j++){
+                s[j].addEvent(new Event(c,0,c.getArrivalTime()));
+            }
+        }
     }
     
 }
