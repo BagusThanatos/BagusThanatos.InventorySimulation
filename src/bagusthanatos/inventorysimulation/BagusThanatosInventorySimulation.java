@@ -26,9 +26,8 @@ public class BagusThanatosInventorySimulation {
         double[] avg = {0.0,0.0,0.0,0.0};
         for (int x=1;x<=50;x++){
             System.out.println("Percobaan ke-"+x);
-            for(int i=0;i<4;i++) {
-            s[i].init();
-        }
+            for(int i=0;i<4;i++) 
+                s[i].init();
             for (int i=0;i<50;i++){
                 Customer c;
                 double r= 0.5+Math.random()*1;
