@@ -18,10 +18,9 @@ public class Simulator {
     private Queue<Event> listCustAr = new LinkedList<>();
     private Queue<Event> listOrderArrival = new LinkedList<>();
     private double clock;
-    private int maxS;
-    private int minS;
-    private int stock;
-    private double holdingCost,totalCost,shortageCost,orderingCost,setupCost,itemCost;
+    private int maxS, minS, stock;
+    private double holdingCost,totalCost,shortageCost,orderingCost;
+    private final int perH=7,perI=80,perSetup=10;// merupakan kelipatan 100K, untuk membuat perhitungan lebih simple
     
     public Simulator(int s, int S){
         this.minS=s;
@@ -32,38 +31,44 @@ public class Simulator {
         this.stock=this.maxS;
         this.holdingCost=0.0;
         this.orderingCost=0.0;
-        this.setupCost=0.0;
         this.shortageCost=0.0;
         this.totalCost=0.0;
-        this.itemCost=0.0;
-        this.listCustAr.clear();
+        this.listCustAr.clear(); 
         this.listOrderArrival.clear();
     }
-    public void inHoldCost(double i){
-        this.holdingCost+=i;
+    
+    public int getStock(){
+        return this.stock;
     }
-    public void inShortCost(double i){
-        this.shortageCost+=1;
+    public double getTotalCost(){
+        return this.totalCost;
     }
-    public void inSetupCost(double i){
-        this.setupCost+=i;
-    }
-    public void inItemCost(double i){
-        this.itemCost+=i;
-    }
-    public double hitungHC(int jumMobil,double timeAwal,double timeAkhir){
-        return jumMobil*100.0*(timeAkhir-timeAkhir);
-    }
-    public void reCountCost(){
-        this.orderingCost=this.setupCost+this.itemCost;
-        this.totalCost=this.orderingCost+this.holdingCost+this.shortageCost;
-    }
-            
     public void setClock(double c){
         this.clock=c;
     }
     public double getClock(){
         return this.clock;
+    }
+    public void inHoldCost(double i){
+        this.holdingCost+=i;
+    }
+    public void inShortCost(double i){
+        this.shortageCost+=i;
+    }
+    public void inOrderCost(double i){
+        this.orderingCost+=i;
+    }
+    public double hitungHC(int jumMobil,double timeAwal,double timeAkhir){
+        return jumMobil*this.perH*(timeAkhir-timeAkhir);
+    }
+    public int hitungOrderCost(int jumMobil){
+        return this.perI*jumMobil+this.perSetup;
+    }
+    public int hitungShortageCost(int jumMobil){
+        return this.perI*jumMobil;
+    }
+    public void reCountCost(){
+        this.totalCost=this.orderingCost+this.holdingCost+this.shortageCost;
     }
     
     public void addEvent(Event e){
@@ -83,11 +88,17 @@ public class Simulator {
         else return null;
     }
     public void checkStock(){
-        Customer c= new Customer("-1",this.clock+5+Math.random()*2,this.maxS-this.stock);
-        if (this.stock<this.minS) this.addEvent(new Event(c,1,c.getArrivalTime()));
+        if (this.stock<this.minS) {
+            Customer c= new Customer("-1",this.clock+5+Math.random()*2,this.maxS-this.stock);
+            this.addEvent(new Event(c,1,c.getArrivalTime()));
+        }
         
     }
     public void restock(int a){
         this.stock+=a;
     }
+    public void destock(int jumMobil){
+        this.stock-=jumMobil;
+    }
+    
 }
