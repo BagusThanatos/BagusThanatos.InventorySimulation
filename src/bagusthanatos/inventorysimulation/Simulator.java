@@ -33,7 +33,11 @@ public class Simulator {
         this.orderingCost=0.0;
         this.shortageCost=0.0;
         this.totalCost=0.0;
+
         this.listCustAr.clear(); 
+
+        this.listCustAr.clear();
+
         this.listOrderArrival.clear();
     }
     
