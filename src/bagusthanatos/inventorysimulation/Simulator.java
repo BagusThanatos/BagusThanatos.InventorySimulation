@@ -101,8 +101,11 @@ public class Simulator {
     public void restock(int a){
         this.stock+=a;
     }
-    public void destock(int jumMobil){
+    public void deStock(int jumMobil){
         this.stock-=jumMobil;
+    }
+    public int getMaxStock(){
+        return this.maxS;
     }
     
 }
