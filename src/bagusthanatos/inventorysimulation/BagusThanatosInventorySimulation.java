@@ -20,7 +20,7 @@ public class BagusThanatosInventorySimulation {
         // TODO code application logic here
         final int sim=6;
         final int jumPercobaan=50;
-        double time=0.0;
+        double time;
         Simulator[] s=new Simulator[sim];
         s[0]=new Simulator(20,40);
         s[1]=new Simulator(30,60);
@@ -55,9 +55,10 @@ public class BagusThanatosInventorySimulation {
                         Customer c= e.getCustomer();
                         
                         if (s[i].getStock()<c.getJumMobil()) {
-                            s[i].inShortCost(s[i].hitungShortageCost(c.jumMobil-s[i].getStock()));
+                            s[i].inShortCost(s[i].hitungShortageCost(c.getJumMobil()-s[i].getStock()));
                             s[i].deStock(s[i].getStock());
-                        
+                            c.setJumMobil(c.getJumMobil()-s[i].getStock());
+                            s[i].addBackLock(c);
                         }
                         else {
                             s[i].deStock(c.getJumMobil());
@@ -65,6 +66,7 @@ public class BagusThanatosInventorySimulation {
                     }
                     else if (e.getType()==1){
                         s[i].restock(e.getCustomer().getJumMobil());
+                        s[i].doBackLog();
                     }
                     s[i].checkStock();
                     s[i].reCountCost();

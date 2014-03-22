@@ -42,4 +42,7 @@ public class Customer {
     public int getJumMobil(){
         return this.jumMobil;
     }
+    public void setJumMobil(int m){
+        this.jumMobil=m;
+    }
 }

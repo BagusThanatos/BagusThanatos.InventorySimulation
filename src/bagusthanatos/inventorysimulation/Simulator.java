@@ -8,6 +8,7 @@ package bagusthanatos.inventorysimulation;
 
 
 import java.util.PriorityQueue;
+import java.util.LinkedList;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.util.PriorityQueue;
 public class Simulator {
     private PriorityQueue<Event> listCustAr = new PriorityQueue<>();
     private PriorityQueue<Event> listOrderArrival = new PriorityQueue<>();
-    private PriorityQueue<Event> backLog = new PriorityQueue<>();
+    private LinkedList<Customer> backLog = new LinkedList<>();
     private double clock;
     private int maxS, minS, stock;
     private double holdingCost,totalCost,shortageCost,orderingCost;
@@ -89,9 +90,22 @@ public class Simulator {
         else if (a!=null) return this.listCustAr.remove();
         else return null;
     }
-    public Event getNextBackLog(){
-        Event a= this.backLog.peek();
-        return (a==null) ? null : this.backLog.remove();
+    public void doBackLog(){
+        while (backLog.size()>0 && this.stock > 0){
+            Customer c= this.backLog.removeFirst();
+            if (this.stock < c.getJumMobil()){
+                this.deStock(this.stock);
+                c.setJumMobil(c.getJumMobil()-this.stock);
+                this.backLog.addFirst(c);
+            }
+            else {
+                this.deStock(c.getJumMobil());
+            }
+            System.out.println("C-"+c.getName()+" do backLog:"+(c.getJumMobil()));
+        }
+    }
+    public void addBackLock(Customer c){
+        this.backLog.addLast(c);
     }
     public void checkStock(){
         if (this.stock<this.minS && this.listOrderArrival.peek()==null) {
