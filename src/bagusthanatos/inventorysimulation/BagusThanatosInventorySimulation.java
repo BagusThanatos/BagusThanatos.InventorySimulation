@@ -56,8 +56,8 @@ public class BagusThanatosInventorySimulation {
                         
                         if (s[i].getStock()<c.getJumMobil()) {
                             s[i].inShortCost(s[i].hitungShortageCost(c.getJumMobil()-s[i].getStock()));
-                            s[i].deStock(s[i].getStock());
                             c.setJumMobil(c.getJumMobil()-s[i].getStock());
+                            s[i].deStock(s[i].getStock());
                             s[i].addBackLock(c);
                         }
                         else {

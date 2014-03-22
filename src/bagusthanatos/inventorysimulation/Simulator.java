@@ -101,7 +101,7 @@ public class Simulator {
             else {
                 this.deStock(c.getJumMobil());
             }
-            System.out.println("C-"+c.getName()+" do backLog:"+(c.getJumMobil()));
+            //System.out.println("C-"+c.getName()+" do backLog:"+(c.getJumMobil()));
         }
     }
     public void addBackLock(Customer c){
