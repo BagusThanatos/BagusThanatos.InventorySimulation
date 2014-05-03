@@ -29,7 +29,7 @@ public class MainTesting {
         while (e!=null){
             s.setClock(e.getTime());
             System.out.println("cur time:"+s.getClock());
-            System.out.println(""+s.getStock());
+            System.out.println("Stock awal:"+s.getStock());
             s.inHoldCost(s.hitungHC(s.getStock(),s.getClock(),e.getTime()));
             if (e.getType()==0) {
                 Customer c= e.getCustomer();
@@ -39,7 +39,6 @@ public class MainTesting {
                     s.inShortCost(s.hitungShortageCost(c.getJumMobil()-s.getStock()));
                     c.setJumMobil(c.getJumMobil()-s.getStock());
                     s.deStock(s.getStock());
-                    
                     System.out.println("C-"+c.getName()+" memesan mobil sebanyak "+c.getJumMobil());
                     s.addBackLock(c);
                 }
@@ -57,6 +56,7 @@ public class MainTesting {
             s.checkStock();
             s.reCountCost();
             e = s.getNextEvent();
+            System.out.println("Stock akhir:"+s.getStock());
         }
         System.out.println("Total Cost: "+s.getTotalCost());
     }
